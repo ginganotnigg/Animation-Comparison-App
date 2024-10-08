@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'screen/complex_loading.dart';
 import 'screen/material_motion.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const AnimationApp());
@@ -32,11 +33,12 @@ class _HomePageState extends State<HomePage> {
   int _selectedIdx = 0;
   bool _useBuiltIn = true;
 
+  // ignore: prefer_final_fields
   List<Widget> _screens = [
-    MaterialMotionScreen(useBuiltIn: true),
-    //PreBuiltEffectsScreen(useBuiltIn: true),
-    //ComplexLoadingScreen(useBuiltIn: true),
-    //ButtonPressScreen(useBuiltIn: true),
+    const ComplexLoadingScreen(useBuiltIn: true),
+    const MaterialMotionScreen(useBuiltIn: true),
+    //const PreBuiltEffects(useBuiltIn: true),
+    //const ButtonPressScreen(useBuiltIn: true)
   ];
 
   void navigateBar(int idx) {
@@ -62,13 +64,13 @@ class _HomePageState extends State<HomePage> {
         onTap: navigateBar,
         items: const [
           BottomNavigationBarItem(
+              icon: Icon(Icons.arrow_circle_down), label: 'Complex Loading'),
+          BottomNavigationBarItem(
               icon: Icon(Icons.motion_photos_auto_outlined),
               label: 'Material Motion'),
           BottomNavigationBarItem(
               icon: Icon(Icons.build_circle_outlined),
               label: 'Pre-built Effects'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.arrow_circle_down), label: 'Complex Loading'),
           BottomNavigationBarItem(
               icon: Icon(Icons.ads_click), label: 'Button Press'),
         ],
@@ -79,18 +81,10 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             _useBuiltIn = !_useBuiltIn;
             _screens[_selectedIdx] = _selectedIdx == 0
-                ? MaterialMotionScreen(useBuiltIn: _useBuiltIn)
+                ? ComplexLoadingScreen(useBuiltIn: _useBuiltIn)
                 : _selectedIdx == 1
-                    ? MaterialMotionScreen(
-                        useBuiltIn:
-                            _useBuiltIn) // Must fixed to PreBuiltEffectsScreen
-                    : _selectedIdx == 2
-                        ? MaterialMotionScreen(
-                            useBuiltIn:
-                                _useBuiltIn) // Must fixed to ComplexLoadingScreen
-                        : MaterialMotionScreen(
-                            useBuiltIn:
-                                _useBuiltIn); // Must fixed to ButtonPressScreen
+                    ? MaterialMotionScreen(useBuiltIn: _useBuiltIn)
+                    : const Placeholder();
           });
         },
         tooltip: 'Switch Animations',
