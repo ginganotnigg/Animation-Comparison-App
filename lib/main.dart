@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screen/button_press.dart';
 import 'screen/material_motion.dart';
 
 void main() {
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     MaterialMotionScreen(useBuiltIn: true),
     //PreBuiltEffectsScreen(useBuiltIn: true),
     //ComplexLoadingScreen(useBuiltIn: true),
-    //ButtonPressScreen(useBuiltIn: true),
+    ButtonPressScreen(useBuiltIn: true),
   ];
 
   void navigateBar(int idx) {
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                         ? MaterialMotionScreen(
                             useBuiltIn:
                                 _useBuiltIn) // Must fixed to ComplexLoadingScreen
-                        : MaterialMotionScreen(
+                        : ButtonPressScreen(
                             useBuiltIn:
                                 _useBuiltIn); // Must fixed to ButtonPressScreen
           });
