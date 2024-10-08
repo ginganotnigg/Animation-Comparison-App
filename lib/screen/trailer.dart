@@ -24,7 +24,7 @@ class TrailerScreen extends StatelessWidget {
             return Center(
               child: useBuiltIn
                   ? const Loader()
-                  : Lottie.asset('lib/assets/loading.json',
+                  : Lottie.asset('lib/assets/lottie/loading.json',
                       width: 200, height: 200),
             );
           } else if (snapshot.hasError) {

@@ -1,6 +1,7 @@
 import 'screen/complex_loading.dart';
-import 'screen/material_motion.dart';
 import 'package:flutter/material.dart';
+import 'screen/button_press.dart';
+import 'screen/material_motion.dart';
 
 void main() {
   runApp(const AnimationApp());
@@ -37,13 +38,14 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _screens = [
     const ComplexLoadingScreen(useBuiltIn: true),
     const MaterialMotionScreen(useBuiltIn: true),
-    //const PreBuiltEffects(useBuiltIn: true),
-    //const ButtonPressScreen(useBuiltIn: true)
+    const ButtonPressScreen(useBuiltIn: true),
+    //const PreBuiltEffects(useBuiltIn: true)
   ];
 
   void navigateBar(int idx) {
     setState(() {
       _selectedIdx = idx;
+      _useBuiltIn = true;
     });
   }
 
@@ -69,10 +71,10 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.motion_photos_auto_outlined),
               label: 'Material Motion'),
           BottomNavigationBarItem(
+              icon: Icon(Icons.ads_click), label: 'Button Press'),
+          BottomNavigationBarItem(
               icon: Icon(Icons.build_circle_outlined),
               label: 'Pre-built Effects'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.ads_click), label: 'Button Press'),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -83,8 +85,14 @@ class _HomePageState extends State<HomePage> {
             _screens[_selectedIdx] = _selectedIdx == 0
                 ? ComplexLoadingScreen(useBuiltIn: _useBuiltIn)
                 : _selectedIdx == 1
-                    ? MaterialMotionScreen(useBuiltIn: _useBuiltIn)
-                    : const Placeholder();
+                    ? MaterialMotionScreen(
+                        useBuiltIn:
+                            _useBuiltIn) // Must fixed to PreBuiltEffectsScreen
+                    : _selectedIdx == 2
+                        ? ButtonPressScreen(
+                            useBuiltIn:
+                                _useBuiltIn) // Must fixed to ComplexLoadingScreen
+                        : const Scaffold(); // Must fixed to ButtonPressScreen
           });
         },
         tooltip: 'Switch Animations',
