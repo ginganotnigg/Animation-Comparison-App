@@ -1,6 +1,7 @@
 import 'screen/complex_loading.dart';
 import 'package:flutter/material.dart';
 import 'screen/button_press.dart';
+import 'screen/prebuilt_effects.dart';
 import 'screen/material_motion.dart';
 
 void main() {
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     const ComplexLoadingScreen(useBuiltIn: true),
     const MaterialMotionScreen(useBuiltIn: true),
     const ButtonPressScreen(useBuiltIn: true),
-    //const PreBuiltEffects(useBuiltIn: true)
+    const PreBuiltEffectScreen(useBuiltIn: true)
   ];
 
   void navigateBar(int idx) {
@@ -92,7 +93,11 @@ class _HomePageState extends State<HomePage> {
                         ? ButtonPressScreen(
                             useBuiltIn:
                                 _useBuiltIn) // Must fixed to ComplexLoadingScreen
-                        : const Scaffold(); // Must fixed to ButtonPressScreen
+                        : _selectedIdx == 3
+                            ? PreBuiltEffectScreen(
+                                useBuiltIn:
+                                    _useBuiltIn) // Must fixed to ComplexLoadingScreen
+                            : const Scaffold(); // Must fixed to ButtonPressScreen
           });
         },
         tooltip: 'Switch Animations',
