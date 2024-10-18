@@ -9,7 +9,7 @@ class ButtonPressScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  _ButtonPressScreenState createState() => _ButtonPressScreenState();
+  State<ButtonPressScreen> createState() => _ButtonPressScreenState();
 }
 
 class _ButtonPressScreenState extends State<ButtonPressScreen>

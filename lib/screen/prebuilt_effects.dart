@@ -9,7 +9,7 @@ class PreBuiltEffectScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  _PreBuiltEffectScreenState createState() => _PreBuiltEffectScreenState();
+  State<PreBuiltEffectScreen> createState() => _PreBuiltEffectScreenState();
 }
 
 class _PreBuiltEffectScreenState extends State<PreBuiltEffectScreen>
@@ -24,13 +24,22 @@ class _PreBuiltEffectScreenState extends State<PreBuiltEffectScreen>
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
-    _controller.forward(); // Start the animation
+    _controller.forward();
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(PreBuiltEffectScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.useBuiltIn && oldWidget.useBuiltIn != widget.useBuiltIn) {
+      _controller.reset();
+      _controller.forward();
+    }
   }
 
   @override
@@ -53,7 +62,7 @@ class _PreBuiltEffectScreenState extends State<PreBuiltEffectScreen>
   }
 
   Widget _movieTile(Movie movie) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 120,
       child: ListTile(
@@ -78,7 +87,6 @@ class _PreBuiltEffectScreenState extends State<PreBuiltEffectScreen>
 
   Widget _buildBuiltInPreBuiltEffects(Movie movie, int index) {
     // Create animations for each movie tile
-    final animationDelay = 100 * index; // Increment delay based on index
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -86,11 +94,11 @@ class _PreBuiltEffectScreenState extends State<PreBuiltEffectScreen>
           opacity: _controller.value,
           child: Transform.translate(
             offset: Offset(
-              0,
-              (1 - _controller.value) * 20, // Slide effect
+              (1 - _controller.value) * 60,
+              (1 - _controller.value) * 30,
             ),
             child: Transform.scale(
-              scale: 1 + (_controller.value * 0.1), // Scale effect
+              scale: 0.9 + (_controller.value * 0.1),
               child: child,
             ),
           ),
